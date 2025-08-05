@@ -1,0 +1,7 @@
+streamlit
+pandas 
+plotly
+numpy
+python-dateutil
+python-dotenv
+requests
