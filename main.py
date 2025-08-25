@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 import functools
 import logging
 import warnings
+import base64
 warnings.filterwarnings('ignore')
 
 # Set up logging
@@ -789,14 +790,28 @@ def main():
         st.error("⚠️ Weather API key not found. Please set API_KEY in your environment variables.")
         st.stop()
 
-    # Enhanced title with styling
-    st.markdown("""
-        <h1 style='text-align: center; color: #2E7D32; margin-bottom: 30px;'>
-            🌾 Enhanced Agricultural Forecasting System
-        </h1>
-        
-    """, unsafe_allow_html=True)
+    
 
+    # Load image and convert to base64
+    def get_base64_image(image_path):
+        with open(image_path, "rb") as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+
+    img_base64 = get_base64_image("zalliant.png")
+
+    st.markdown(
+        f"""
+        <div style="display: flex; align-items: center; margin-bottom: 30px;">
+            <img src="data:image/png;base64,{img_base64}" 
+                style="width: 60px; height: 60px; margin-right: 15px; border-radius: 50%;">
+            <h1 style="color: #2E7D32; margin: 0;">
+                Enhanced Agricultural Forecasting System
+            </h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     # Create sidebar for inputs
     with st.sidebar:
         st.markdown("### 📊 Input Parameters")
